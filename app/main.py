@@ -35,7 +35,7 @@ def main():
     # Six 16-bit unsigned integers, big-endian
     packer = struct.Struct(">HHHHHH")
 
-    packed_data = packer.pack(
+    HEADER = packer.pack(
         ID,
         flags,
         QDCOUNT,
@@ -56,7 +56,7 @@ def main():
             buf, source = udp_socket.recvfrom(512)
 
             # Send our DNS response
-            udp_socket.sendto(packed_data, source)
+            udp_socket.sendto(HEADER, source)
 
         except Exception as e:
             print(f"Error receiving data: {e}")
